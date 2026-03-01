@@ -24,7 +24,7 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
+      /* overflow: hidden; --- INI DIHAPUS */
     }
 
     /* ===== VIDEO BACKGROUND ===== */
@@ -44,6 +44,8 @@
       display: block;
       width: 100%;
       max-width: 450px;
+      max-height: 90vh;        /* Batasi tinggi biar ga terlalu panjang */
+      overflow-y: auto;         /* Aktifin scroll */
       padding: 40px 30px;
       border-radius: 20px;
       z-index: 2;
@@ -53,6 +55,19 @@
       backdrop-filter: blur(3px);
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
       animation: fadeIn .8s ease;
+    }
+
+    /* Styling scrollbar biar keren */
+    .page::-webkit-scrollbar {
+      width: 5px;
+    }
+    .page::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+    .page::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 10px;
     }
 
     @keyframes fadeIn {
@@ -171,10 +186,26 @@
       border-radius: 10px;
       backdrop-filter: blur(5px);
     }
+
+    /* Teks Peringatan (opsional) */
+    .warning-text {
+      text-align: center;
+      color: #ffaa00;
+      font-size: 12px;
+      font-weight: bold;
+      margin: 20px 0 10px;
+      padding: 10px;
+      background: rgba(255, 170, 0, 0.1);
+      border-radius: 8px;
+      border: 1px solid #ffaa00;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
-  <!-- ===== VIDEO BACKGROUND DENGAN LINK YANG ANDA MINTA ===== -->
+  <!-- Video Background -->
   <video id="bg-video" autoplay loop muted playsinline>
     <source src="https://files.catbox.moe/avcwnl.mp4" type="video/mp4">
     Browser tidak mendukung video.
@@ -208,7 +239,13 @@
       </button>
     </div>
 
-    <div class="footer">© 2026PAYMENT raja</div>
+    <!-- Teks Peringatan (opsional) -->
+    <div class="warning-text">
+      ⚠️ WAJIB SS BUKTI TF ⚠️<br>
+      TRX DI ANGGAP DONE + NO REFF ✅
+    </div>
+
+    <div class="footer">© 2026 PAYMENT raja</div>
   </div>
 
   <!-- Notifikasi -->
@@ -255,12 +292,11 @@
       setTimeout(() => notif.classList.remove("show"), 2000);
     }
 
-    // Pastikan video jalan (fallback kalo autoplay diblokir)
+    // Pastikan video jalan
     document.addEventListener('DOMContentLoaded', function() {
       const video = document.getElementById('bg-video');
       video.play().catch(e => {
-        console.log('Autoplay video gagal, menunggu interaksi user:', e);
-        // Coba play saat user klik pertama kali
+        console.log('Autoplay video gagal:', e);
         document.addEventListener('click', function playOnce() {
           video.play();
           document.removeEventListener('click', playOnce);
