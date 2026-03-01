@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The real PAYMENT raja</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" href="https://files.catbox.moe/vjtddl.jpg" type="image/png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: black;
+      font-family: 'Poppins', sans-serif;
+      color: #aaa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== VIDEO BACKGROUND ===== */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .page {
+      display: block;
+      width: 100%;
+      max-width: 450px;
+      padding: 40px 30px;
+      border-radius: 20px;
+      z-index: 2;
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(3px);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+      animation: fadeIn .8s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      filter: drop-shadow(0 0 30px #fff);
+      margin-bottom: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .title {
+      font-size: 32px;
+      color: #fff;
+      text-shadow: 0 0 10px #000;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 5px #000;
+    }
+
+    .pay-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      background: linear-gradient(135deg, rgba(170,170,170,0.9), rgba(119,119,119,0.9));
+      color: white;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .3s;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .pay-btn:hover {
+      background: rgba(136,136,136,0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(255, 255, 255, 0.3);
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #fff;
+      text-shadow: 0 0 5px #000;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px; right: 20px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #fff;
+      color: white;
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      transform: translateX(100vw);
+      transition: .3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(5px);
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .qris-img {
+      width: 260px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .qris-container {
+      text-align: center;
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== VIDEO BACKGROUND DENGAN LINK YANG ANDA MINTA ===== -->
+  <video id="bg-video" autoplay loop muted playsinline>
+    <source src="https://files.catbox.moe/avcwnl.mp4" type="video/mp4">
+    Browser tidak mendukung video.
+  </video>
+
+  <!-- Halaman Utama -->
+  <div id="paymentPage" class="page">
+    <div class="logo-container">
+      <img src="https://files.catbox.moe/vjtddl.jpg" alt="Logo" class="logo">
+      <div class="title">PAYMENT raja</div>
+      <div class="subtitle">Klik Button untuk salin nomor</div>
+    </div>
+
+    <!-- DANA -->
+    <button class="pay-btn" onclick="copyText('0895416503692')">
+      <i class="fas fa-wallet"></i> Dana: 0895416503692
+    </button>
+
+    <!-- Tombol QRIS -->
+    <button class="pay-btn" onclick="toggleQRIS()">
+      <i class="fas fa-qrcode"></i> Tampilkan QRIS
+    </button>
+
+    <!-- QRIS Container (hidden by default) -->
+    <div id="qrisContainer" class="qris-container hidden">
+      <h3 style="color:#fff; margin-bottom:15px;">QRIS Pembayaran</h3>
+      <img src="https://files.catbox.moe/vjtddl.jpg" alt="QRIS" class="qris-img">
+      <p style="color:#ccc; margin:10px 0;">Scan QRIS di atas untuk bayar</p>
+      <button class="pay-btn" onclick="downloadQRIS()">
+        <i class="fas fa-download"></i> Download QRIS
+      </button>
+    </div>
+
+    <div class="footer">© 2026PAYMENT raja</div>
+  </div>
+
+  <!-- Notifikasi -->
+  <div id="notification" class="notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="notification-text">Disalin!</span>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const notif = document.getElementById("notification");
+        const notifText = document.getElementById("notification-text");
+        notifText.textContent = text + " berhasil disalin!";
+        notif.classList.add("show");
+        setTimeout(() => notif.classList.remove("show"), 2500);
+      }).catch(() => {
+        alert("Gagal menyalin. Coba manual: " + text);
+      });
+    }
+
+    function toggleQRIS() {
+      const qris = document.getElementById('qrisContainer');
+      qris.classList.toggle('hidden');
+      
+      const btn = event.currentTarget;
+      if (qris.classList.contains('hidden')) {
+        btn.innerHTML = '<i class="fas fa-qrcode"></i> Tampilkan QRIS';
+      } else {
+        btn.innerHTML = '<i class="fas fa-qrcode"></i> Sembunyikan QRIS';
+      }
+    }
+
+    function downloadQRIS() {
+      const link = document.createElement('a');
+      link.href = 'https://files.catbox.moe/vjtddl.jpg';
+      link.download = 'qris_raja.jpg';
+      link.click();
+      
+      const notif = document.getElementById("notification");
+      document.getElementById("notification-text").textContent = "QRIS didownload!";
+      notif.classList.add("show");
+      setTimeout(() => notif.classList.remove("show"), 2000);
+    }
+
+    // Pastikan video jalan (fallback kalo autoplay diblokir)
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('bg-video');
+      video.play().catch(e => {
+        console.log('Autoplay video gagal, menunggu interaksi user:', e);
+        // Coba play saat user klik pertama kali
+        document.addEventListener('click', function playOnce() {
+          video.play();
+          document.removeEventListener('click', playOnce);
+        }, { once: true });
+      });
+    });
+  </script>
+</body>
+</html>
